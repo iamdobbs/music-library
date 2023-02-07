@@ -1,4 +1,4 @@
-# GET /albums Route Design Recipe
+# POST /artists Route Design Recipe
 
 _Copy this design recipe template to test-drive a Sinatra route._
 
@@ -11,7 +11,7 @@ You'll need to include:
   * or body parameters (passed in the request body)
 
   Method: POST
-  Path: /albums
+  Path: /artists
 
 ## 2. Design the Response
 
@@ -24,18 +24,12 @@ Your response might return plain text, JSON, or HTML code.
 _Replace the below with your own design. Think of all the different possible responses your route will return._
 
 ```
-Surfer Rosa
-Waterloo
-Super Trouper
-Bossanova
-Lover
-Folklore
-I Put a Spell on You
-Baltimore
-Here Comes the Sun
-Fodder on My Wings
-Ring Ring
-All We Know
+Pixies
+ABBA
+Taylor Swift
+Nina Simone
+Kiasmos
+Nao
 ```
 
 ## 3. Write Examples
@@ -45,24 +39,18 @@ _Replace these with your own design._
 ```
 # Request:
 
-POST /albums
+POST /artist
 
 # Expected response:
 
 Response for 200 OK
 ```
-Surfer Rosa
-Waterloo
-Super Trouper
-Bossanova
-Lover
-Folklore
-I Put a Spell on You
-Baltimore
-Here Comes the Sun
-Fodder on My Wings
-Ring Ring
-All We Know
+Pixies
+ABBA
+Taylor Swift
+Nina Simone
+Kiasmos
+Nao
 ```
 
 ```
@@ -80,21 +68,20 @@ describe Application do
 
   let(:app) { Application.new }
 
-  context 'POST /albums' do
-    it 'should create a new album' do
+  context 'POST /artists' do
+    it 'should create a new artist' do
       response = post(
-        '/albums',
-        title: 'All We Know',
-        release_year: '2016',
-        artist_id: '2'
+        '/artists',
+        name: 'Nao',
+        genre: 'RnB'
       )
 
       expect(response.status).to eq(200)
       expect(response.body).to eq('')
 
-      response = get('/albums')
+      response = get('/artists')
 
-      expect(response.body).to include('All We Know')
+      expect(response.body).to include('Nao')
     end
   end    
 end

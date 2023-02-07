@@ -1,4 +1,4 @@
-# GET /albums Route Design Recipe
+# GET /artists Route Design Recipe
 
 _Copy this design recipe template to test-drive a Sinatra route._
 
@@ -10,8 +10,8 @@ You'll need to include:
   * any query parameters (passed in the URL)
   * or body parameters (passed in the request body)
 
-  Method: POST
-  Path: /albums
+  Method: GET
+  Path: /artists
 
 ## 2. Design the Response
 
@@ -24,18 +24,11 @@ Your response might return plain text, JSON, or HTML code.
 _Replace the below with your own design. Think of all the different possible responses your route will return._
 
 ```
-Surfer Rosa
-Waterloo
-Super Trouper
-Bossanova
-Lover
-Folklore
-I Put a Spell on You
-Baltimore
-Here Comes the Sun
-Fodder on My Wings
-Ring Ring
-All We Know
+Pixies
+ABBA
+Taylor Swift
+Nina Simone
+Kiasmos
 ```
 
 ## 3. Write Examples
@@ -45,24 +38,17 @@ _Replace these with your own design._
 ```
 # Request:
 
-POST /albums
+GET /artists
 
 # Expected response:
 
 Response for 200 OK
 ```
-Surfer Rosa
-Waterloo
-Super Trouper
-Bossanova
-Lover
-Folklore
-I Put a Spell on You
-Baltimore
-Here Comes the Sun
-Fodder on My Wings
-Ring Ring
-All We Know
+Pixies
+ABBA
+Taylor Swift
+Nina Simone
+Kiasmos
 ```
 
 ```
@@ -80,26 +66,20 @@ describe Application do
 
   let(:app) { Application.new }
 
-  context 'POST /albums' do
-    it 'should create a new album' do
-      response = post(
-        '/albums',
-        title: 'All We Know',
-        release_year: '2016',
-        artist_id: '2'
-      )
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq('')
-
+  context 'GET /artists'  do
+    it 'should return the list of artists' do
       response = get('/albums')
 
-      expect(response.body).to include('All We Know')
+      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos"
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(expected_response)
     end
-  end    
+  end  
 end
 ```
 
 ## 5. Implement the Route
 
 Write the route and web server code to implement the route behaviour.
+
