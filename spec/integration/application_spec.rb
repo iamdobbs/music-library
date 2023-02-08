@@ -11,12 +11,12 @@ describe Application do
   let(:app) { Application.new }
 
   context 'GET /albums'  do
-    it 'should return the list of albums formatted with html' do
+    it 'should return the list of albums with links' do
       response = get('/albums')
       
       expect(response.status).to eq(200)
-      expect(response.body).to include('Title: Surfer Rosa')
-      expect(response.body).to include('Title: Bossanova')
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a>')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a>')
     end
   end    
 
