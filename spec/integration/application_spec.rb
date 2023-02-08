@@ -38,16 +38,26 @@ describe Application do
     end
   end    
 
-  context 'GET /artists'  do
-    it 'should return the list of artists' do
-      response = get('/artists')
-
-      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos"
+  context 'GET /albums/:id' do
+    it 'returns an album specified by id' do
+      response = get('/albums/2')
 
       expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+      expect(response.body).to include('<h1>Surfer Rosa</h1>')
+      expect(response.body).to include('Release year: 1988')
+      expect(response.body).to include('Artist: Pixies')
     end
-  end  
+  end
+
+  context 'GET /artists'  do
+    it 'should return the list of artists with links' do
+      response = get('/artists')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/artists/1">Pixies</a><br />')
+      expect(response.body).to include('<a href="/artists/2">ABBA</a><br />')
+    end
+  end    
 
   context 'POST /artists' do
     it 'should create a new artist' do
@@ -66,14 +76,12 @@ describe Application do
     end
   end   
 
-  context 'GET /albums/:id' do
-    it 'returns an album specified by id' do
-      response = get('/albums/2')
+  context 'GET /artists/:id' do
+    it 'returns an artist specified by id' do
+      response = get('/artists/1')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include('<h1>Surfer Rosa</h1>')
-      expect(response.body).to include('Release year: 1988')
-      expect(response.body).to include('Artist: Pixies')
+      expect(response.body).to include('Pixies')
     end
   end
 end
