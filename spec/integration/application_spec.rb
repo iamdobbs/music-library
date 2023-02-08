@@ -72,6 +72,17 @@ describe Application do
     end
   end    
 
+  context 'GET /artists/new' do
+    it 'should provide a form for new artist input' do
+      response = get('artists/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/artists">')
+      expect(response.body).to include('input type="text" name="name"')
+      expect(response.body).to include('input type="text" name="genre"')
+    end
+  end   
+
   context 'POST /artists' do
     it 'should create a new artist' do
       response = post(
@@ -81,7 +92,7 @@ describe Application do
       )
 
       expect(response.status).to eq(200)
-      expect(response.body).to eq('')
+      expect(response.body).to include('New artist created!')
 
       response = get('/artists')
 

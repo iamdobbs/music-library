@@ -54,6 +54,12 @@ class Application < Sinatra::Base
     return erb(:artists)
   end  
 
+  get '/artists/new' do
+    repo = ArtistRepository.new
+    @artists = repo.all
+    return erb(:new_artist)
+  end
+
   post '/artists' do
     repo = ArtistRepository.new
     new_artist = Artist.new
@@ -61,6 +67,8 @@ class Application < Sinatra::Base
     new_artist.genre = params[:genre]
 
     repo.create(new_artist)
+
+    return 'New artist created!'
   end  
 
   get '/artists/:id' do
