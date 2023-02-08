@@ -15,8 +15,8 @@ describe Application do
       response = get('/albums')
       
       expect(response.status).to eq(200)
-      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a>')
-      expect(response.body).to include('<a href="/albums/3">Waterloo</a>')
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a><br />')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a><br />')
     end
   end    
 
