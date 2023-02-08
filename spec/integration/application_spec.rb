@@ -66,4 +66,15 @@ describe Application do
       expect(response.body).to include('Nao')
     end
   end   
+
+  context 'GET /albums/:id' do
+    it 'returns an album specified by id' do
+      response = get('/albums/2')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Surfer Rosa</h1>')
+      expect(response.body).to include('Release year: 1988')
+      expect(response.body).to include('Artist: Pixies')
+    end
+  end
 end

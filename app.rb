@@ -12,7 +12,7 @@ class Application < Sinatra::Base
     register Sinatra::Reloader
     also_reload 'lib/album_repository'
     also_reload 'lib/artist_repository'
-  end
+  end 
 
   get '/albums' do
     repo = AlbumRepository.new
@@ -54,4 +54,14 @@ class Application < Sinatra::Base
 
     repo.create(new_artist)
   end 
+
+  get '/albums/:id' do
+    repo = AlbumRepository.new
+    artist_repo = ArtistRepository.new
+
+    @album = repo.find(params[:id])
+    @artist = artist_repo.find(@album.artist_id)
+
+    return erb(:album)
+  end  
 end
